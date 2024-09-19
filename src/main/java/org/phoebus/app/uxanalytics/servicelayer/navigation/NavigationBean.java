@@ -1,5 +1,7 @@
 package org.phoebus.app.uxanalytics.servicelayer.navigation;
 
+import org.springframework.context.annotation.Bean;
+
 import java.io.Serializable;
 
 public class NavigationBean implements Serializable {
@@ -13,7 +15,7 @@ public class NavigationBean implements Serializable {
     public NavigationBean() {
     }
 
-    public NavigationBean(String dstName, String dstType, String srcName, String srcType, String action) {
+    public NavigationBean(String dstType, String dstName, String srcType, String srcName, String action) {
         this.dstName = dstName;
         this.dstType = dstType;
         this.srcName = srcName;

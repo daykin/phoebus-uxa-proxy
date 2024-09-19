@@ -1,20 +1,44 @@
 package org.phoebus.app.uxanalytics.servicelayer.clicktracking;
 
 import java.io.Serializable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class ClickBean implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
 
     private int x;
     private int y;
-    private String tableName;
+    private String fileName;
 
     public ClickBean() {
     }
 
-    public ClickBean(int x, int y, String tableName) {
+    public ClickBean(Integer x, Integer y, String filename) {
         this.x = x;
         this.y = y;
-        this.tableName = tableName;
+        this.fileName = filename;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ClickBean(int x, int y, String fileName, int id) {
+        this.x = x;
+        this.y = y;
+        this.id = id;
+        this.fileName = fileName;
     }
 
     public int getX() {
@@ -33,12 +57,12 @@ public class ClickBean implements Serializable {
         this.y = y;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
 }
