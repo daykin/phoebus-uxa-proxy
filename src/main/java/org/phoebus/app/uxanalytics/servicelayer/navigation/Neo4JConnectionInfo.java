@@ -5,19 +5,23 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 @PropertySource("classpath:application.properties")
 public class Neo4JConnectionInfo {
-    @Value("${spring.data.neo4j.uri}")
+    @Value("${spring.data.neo4j.default-uri}")
     private String uri;
-    @Value("${spring.data.neo4j.username}")
+    @Value("${spring.data.neo4j.default-username}")
     private String username;
-    @Value("${spring.data.neo4j.password}")
+    @Value("${spring.data.neo4j.default-password}")
     private String password;
 
-    private static final Logger logger = Logger.getLogger(Neo4JConnectionInfo.class.getName());
+    private InitialContext jndiContext;
+
+    private static final Logger logger = LoggerFactory.getLogger(Neo4JConnectionInfo.class);
 
     private static final String URI_JNDI = "neoURI";
     private static final String USERNAME_JNDI = "neoUser";
@@ -33,8 +37,8 @@ public class Neo4JConnectionInfo {
         try{
             return getJndiVariable(URI_JNDI);
         } catch (Exception e) {
-            logger.warning("Could not get URI from JNDI, using application.properties");
-            return uri;
+            logger.warn("Could not get URI from JNDI, using default from application.properties: "+ uri);
+            return this.uri;
         }
     }
 
@@ -43,8 +47,8 @@ public class Neo4JConnectionInfo {
         try{
             return getJndiVariable(USERNAME_JNDI);
         } catch (Exception e) {
-            logger.warning("Could not get Username from JNDI, using application.properties");
-            return uri;
+            logger.warn("Could not get Username from JNDI, using default from application.properties: "+ username);
+            return this.username;
         }
     }
 
@@ -53,8 +57,8 @@ public class Neo4JConnectionInfo {
         try{
             return getJndiVariable(PASSWORD_JNDI);
         } catch (Exception e) {
-            logger.warning("Could not get password from JNDI, using application.properties");
-            return uri;
+            logger.warn("Could not get password from JNDI, using default from application.properties");
+            return this.password;
         }
     }
 

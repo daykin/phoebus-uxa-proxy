@@ -11,7 +11,7 @@ public class ClickBean implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     private int x;
     private int y;
@@ -26,15 +26,15 @@ public class ClickBean implements Serializable {
         this.fileName = filename;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public ClickBean(int x, int y, String fileName, int id) {
+    public ClickBean(int x, int y, String fileName, Long id) {
         this.x = x;
         this.y = y;
         this.id = id;

@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 public interface ClickTrackingDatabase {
 
-    public @ResponseBody String recordClick(@RequestParam Integer x, @RequestParam Integer y, @RequestParam String filename);
+    public ResponseEntity<String> recordClick(Integer x, Integer y, String filename);
 
 }

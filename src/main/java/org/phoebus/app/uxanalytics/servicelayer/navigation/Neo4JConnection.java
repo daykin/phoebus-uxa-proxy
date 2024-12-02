@@ -66,7 +66,7 @@ public class Neo4JConnection {
 
     private boolean connected = false;
 
-    public static Neo4JConnection instance;
+    public static Neo4JConnection instance = getInstance();
     private final Neo4JConnectionInfo connectionInfo = new Neo4JConnectionInfo();
 
     public static Neo4JConnection getInstance(){

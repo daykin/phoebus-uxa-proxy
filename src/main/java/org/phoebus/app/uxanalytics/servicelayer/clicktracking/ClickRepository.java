@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 
 //CRUD operations are implemented automagically by Spring Data JPA
-public interface ClickRepository extends CrudRepository<ClickBean, Integer>{
+public interface ClickRepository extends CrudRepository<ClickBean, Long>{
 }
