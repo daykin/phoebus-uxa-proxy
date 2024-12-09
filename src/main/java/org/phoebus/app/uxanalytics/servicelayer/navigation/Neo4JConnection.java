@@ -102,6 +102,15 @@ public class Neo4JConnection {
         }
     }
 
+    public Boolean checkConnection(){
+        try{
+            driver.verifyConnectivity();
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
     public String getProtocol() {
         return PROTOCOL;
     }
@@ -144,23 +153,44 @@ public class Neo4JConnection {
         String dstType = bean.getDstType();
         String srcName = bean.getSrcName();
         String srcType = bean.getSrcType();
-        String action = bean.getAction();
+        String via     = bean.getVia();
+        String action  = bean.getAction();
 
         if(session==null || !session.isOpen() || !connected)
             connected = connect();
         driver.verifyConnectivity();
-        String query = String.format("MERGE(src:%s {name:$srcName}) " +
-                        "MERGE(dst:%s {name:$dstName}) " +
-                        "MERGE(src)-[connection:%s]->(dst) " +
-                        "ON CREATE SET connection.timestamps = [$timestamp]" +
-                        "ON MATCH SET connection.timestamps=connection.timestamps+$timestamp",
-                srcType, dstType, action);
+        String query = "";
+        Map<String, Object> cypherParams;
+        if(via==null) {
+            query = String.format("MERGE(src:%s {name:$srcName}) " +
+                            "MERGE(dst:%s {name:$dstName}) " +
+                            "MERGE(src)-[connection:%s]->(dst) " +
+                            "ON CREATE SET connection.timestamps = [$timestamp]" +
+                            "ON MATCH SET connection.timestamps=connection.timestamps+$timestamp",
+                    srcType, dstType, action);
+            cypherParams = Map.of("srcName", srcName,
+                    "dstName", dstName,
+                    "timestamp",Instant.now().getEpochSecond());
+        }
+        else{
+            query = String.format("MERGE(src:%s {name:$srcName}) " +
+                            "MERGE(dst:%s {name:$dstName}) " +
+                            "MERGE(src)-[connection:%s]->(dst) " +
+                            "ON CREATE SET connection.timestamps = [$timestamp]," +
+                            "connection.via = [$via]" +
+                            "ON MATCH SET connection.timestamps=connection.timestamps+$timestamp,"+
+                            "connection.via = connection.via+[$via]",
+                    srcType, dstType, action);
+            cypherParams = Map.of("srcName", srcName,
+                    "dstName", dstName,
+                    "timestamp", Instant.now().getEpochSecond(),
+                    "via", via);
+        }
         if(dstName != null && dstType != null && srcName != null && srcType != null && session!=null && session.isOpen()) {
             try{
-                SummaryCounters summaryCounters = session.executeWrite(tx -> {var result = tx.run(query,
-                        Map.of("srcName", srcName,
-                                "dstName", dstName,
-                                "timestamp", Instant.now().getEpochSecond()));
+                String finalQuery = query;
+                SummaryCounters summaryCounters = session.executeWrite(tx -> {var result = tx.run(finalQuery,
+                        cypherParams);
                     return result.consume().counters();});
             return ResponseEntity.ok().body(counters2json(summaryCounters));
             } catch (JsonProcessingException e){

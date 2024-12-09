@@ -9,6 +9,7 @@ import org.springframework.web.context.annotation.ApplicationScope;
 @ApplicationScope
 @ComponentScan(basePackages = "org.phoebus.app.uxanalytics.servicelayer.navigation")
 @ComponentScan(basePackages = "org.phoebus.app.uxanalytics.servicelayer.clicktracking")
+@ComponentScan(basePackages = "org.phoebus.app.uxanalytics.servicelayer.global")
 public class ProxyApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProxyApplication.class, args);

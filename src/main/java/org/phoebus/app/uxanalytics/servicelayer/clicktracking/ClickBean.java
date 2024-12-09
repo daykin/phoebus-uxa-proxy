@@ -15,15 +15,24 @@ public class ClickBean implements Serializable {
 
     private int x;
     private int y;
-    private String fileName;
+    private String filename;
+    private Long timestamp;
 
     public ClickBean() {
     }
 
-    public ClickBean(Integer x, Integer y, String filename) {
+    public ClickBean(int x, int y, String filename) {
         this.x = x;
         this.y = y;
-        this.fileName = filename;
+        this.filename = filename;
+        this.timestamp = (Long)(System.currentTimeMillis()/1000);
+    }
+
+    public ClickBean(Integer x, Integer y, String filename, Long timestamp) {
+        this.x = x;
+        this.y = y;
+        this.filename = filename;
+        this.timestamp = timestamp;
     }
 
     public Long getId() {
@@ -34,11 +43,12 @@ public class ClickBean implements Serializable {
         this.id = id;
     }
 
-    public ClickBean(int x, int y, String fileName, Long id) {
+    public ClickBean(int x, int y, String filename, Long id, Long timestamp) {
         this.x = x;
         this.y = y;
         this.id = id;
-        this.fileName = fileName;
+        this.filename = filename;
+        this.timestamp = timestamp;
     }
 
     public int getX() {
@@ -57,12 +67,16 @@ public class ClickBean implements Serializable {
         this.y = y;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
+
+    public Long getTimestamp() { return timestamp; }
+
+    public void setTimestamp(Long timestamp) { this.timestamp = timestamp; }
 
 }

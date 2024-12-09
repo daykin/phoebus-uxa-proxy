@@ -11,6 +11,7 @@ public class NavigationBean implements Serializable {
     String srcName;
     String srcType;
     String action;
+    String via;
 
     public NavigationBean() {
     }
@@ -21,6 +22,16 @@ public class NavigationBean implements Serializable {
         this.srcName = srcName;
         this.srcType = srcType;
         this.action = action;
+        this.via = null;
+    }
+
+    public NavigationBean(String dstType, String dstName, String srcType, String srcName, String action, String via) {
+        this.dstName = dstName;
+        this.dstType = dstType;
+        this.srcName = srcName;
+        this.srcType = srcType;
+        this.action = action;
+        this.via = via;
     }
 
     public String getDstName() {
@@ -63,4 +74,7 @@ public class NavigationBean implements Serializable {
         this.action = action;
     }
 
+    public String getVia() { return via; }
+
+    public void setVia(String via) { this.via = via; }
 }

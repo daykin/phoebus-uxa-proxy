@@ -20,4 +20,5 @@ public class ClickService {
         return clickRepository.save(click);
     }
 
+
 }

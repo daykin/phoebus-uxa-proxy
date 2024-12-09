@@ -23,9 +23,9 @@ public class Neo4JConnectionInfo {
 
     private static final Logger logger = LoggerFactory.getLogger(Neo4JConnectionInfo.class);
 
-    private static final String URI_JNDI = "neoURI";
-    private static final String USERNAME_JNDI = "neoUser";
-    private static final String PASSWORD_JNDI = "neoPassword";
+    private static final String URI_JNDI = "neo4j/phoebus/uxa/bolt/uri";
+    private static final String USERNAME_JNDI = "neo4j/phoebus/uxa/bolt/user";
+    private static final String PASSWORD_JNDI = "neo4j/phoebus/uxa/bolt/password";
 
     private static String getJndiVariable(String name) throws Exception {
         JndiTemplate jndiTemplate = new JndiTemplate();
