@@ -54,11 +54,13 @@ public class Neo4JConnection {
     public static final String ACTION_WROTE = "wrote_to";
     public static final String ACTION_OPENED = "opened";
     public static final String ACTION_NAVIGATED = "navigation_button";
+    public static final String ACTION_RELOADED = "reloaded";
 
     private static final ArrayList<String> actions = new ArrayList<>(
             Arrays.asList(ACTION_WROTE,
                     ACTION_OPENED,
-                    ACTION_NAVIGATED));
+                    ACTION_NAVIGATED,
+                    ACTION_RELOADED));
 
     public static final String PROTOCOL = "neo4j://";
 
