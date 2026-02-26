@@ -13,7 +13,7 @@ public class ClickTrackingDatabaseImplMariaDB implements ClickTrackingDatabase{
 
     private static final Logger logger = LoggerFactory.getLogger(ClickTrackingDatabaseImplMariaDB.class);
     @Override
-    @PostMapping(path="/recordClick")
+    @PostMapping(path="/recordClick", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> recordClick(@RequestBody ClickBean click) {
         ClickBean ret = clickService.recordClick(click);
         return ResponseEntity.ok("{\"id\": " + ret.getId() + "}");

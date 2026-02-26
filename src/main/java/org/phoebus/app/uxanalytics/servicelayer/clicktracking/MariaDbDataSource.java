@@ -22,11 +22,18 @@ public class MariaDbDataSource {
     @Bean
     public DataSource dataSource() {
         try {
-            InitialContext ctx = new InitialContext();
-            String url = (String) ctx.lookup("jdbc/phoebus/uxa/mariadb/uri");
-            String username = (String) ctx.lookup("jdbc/phoebus/uxa/mariadb/user");
-            String password = (String) ctx.lookup("jdbc/phoebus/uxa/mariadb/password");
-
+            String url="jdbc:mariadb://localhost:3306/phoebus";
+            String username="phoebus";
+            String password="phoebus";
+            try{
+                InitialContext ctx = new InitialContext();
+                url = (String) ctx.lookup("jdbc/phoebus/uxa/mariadb/uri");
+                username = (String) ctx.lookup("jdbc/phoebus/uxa/mariadb/user");
+                password = (String) ctx.lookup("jdbc/phoebus/uxa/mariadb/password");
+            }
+            catch(Exception e){
+                logger.info("Couldn't retrieve values from JDBC; Using defaults. Message:"+e.getMessage());
+            }
             HikariConfig config = new HikariConfig();
             config.setJdbcUrl(url);
             config.setUsername(username);
@@ -40,7 +47,7 @@ public class MariaDbDataSource {
             config.setConnectionTimeout(30000);
             return new HikariDataSource(config);
 
-        } catch (NamingException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Failed to configure HikariCP DataSource - message: "+e.getMessage(), e);
         }
     }

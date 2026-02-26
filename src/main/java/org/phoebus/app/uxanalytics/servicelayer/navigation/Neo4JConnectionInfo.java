@@ -38,6 +38,10 @@ public class Neo4JConnectionInfo {
             return getJndiVariable(URI_JNDI);
         } catch (Exception e) {
             logger.warn("Could not get URI from JNDI, using default from application.properties: "+ uri);
+            if(uri==null){
+                logger.warn("uri not defined in application.properties either, using hardcoded default.");
+                return "bolt://localhost:7687";
+            }
             return this.uri;
         }
     }
@@ -48,6 +52,10 @@ public class Neo4JConnectionInfo {
             return getJndiVariable(USERNAME_JNDI);
         } catch (Exception e) {
             logger.warn("Could not get Username from JNDI, using default from application.properties: "+ username);
+            if(username==null){
+                logger.warn("Could not get Username from application.properties either, using hardcoded default.");
+                return "neo4j";
+            }
             return this.username;
         }
     }
@@ -58,6 +66,10 @@ public class Neo4JConnectionInfo {
             return getJndiVariable(PASSWORD_JNDI);
         } catch (Exception e) {
             logger.warn("Could not get password from JNDI, using default from application.properties");
+            if(password==null){
+                logger.warn("could not get password from application.properties either, using hardcoded default.");
+                return "phoebus-uxa";
+            }
             return this.password;
         }
     }

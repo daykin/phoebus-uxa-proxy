@@ -36,3 +36,11 @@ services:
       - graphdb
     environment:
       - POSTBOOT_COMMANDS=/config/post-boot-commands.asadmin
+
+  adminer:
+    container_name: adminer-instance
+    image: adminer:latest
+    ports:
+      - 8081:8080
+    depends_on:
+      - mariadb
