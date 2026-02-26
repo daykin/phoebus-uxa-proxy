@@ -1,0 +1,11 @@
+create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=jdbc\:mariadb\://mariadb-instance\:3306/phoebus jdbc/phoebus/uxa/mariadb/uri
+
+create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=phoebus jdbc/phoebus/uxa/mariadb/user
+
+create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=phoebus jdbc/phoebus/uxa/mariadb/password
+
+create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=bolt\://graphdb-instance\:7687 neo4j/phoebus/uxa/bolt/uri
+
+create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=neo4j neo4j/phoebus/uxa/bolt/user
+
+create-custom-resource --restype=java.lang.String --factoryclass=org.glassfish.resources.custom.factory.PrimitivesAndStringFactory --property value=phoebus-uxa neo4j/phoebus/uxa/bolt/password

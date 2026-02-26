@@ -11,7 +11,7 @@
 	<groupId>org.phoebus</groupId>
 	<artifactId>phoebus-analytics-proxy</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>analytics-service-layer</name>
 	<description>Service Layer for the Phoebus Analytics Plugin</description>
 	<url/>

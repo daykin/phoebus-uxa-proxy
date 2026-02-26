@@ -1,0 +1,38 @@
+services:
+  graphdb:
+    container_name: graphdb-instance
+    image: neo4j:2026.01.4-trixie
+    restart: no
+    ports:
+      - 7474:7474
+      - 7687:7687
+    environment:
+      - NEO4J_AUTH=neo4j/phoebus-uxa
+
+  mariadb:
+    container_name: mariadb-instance
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ROOT_PASSWORD=phoebus
+      - MARIADB_USER=phoebus
+      - MARIADB_PASSWORD=phoebus
+      - MARIADB_DATABASE=phoebus
+
+  appserver:
+    container_name: phoebus-uxa-appserver
+    image: payara/server-full:6.2025.11-jdk21
+    ports:
+      - 8080:8080
+      - 8181:8181
+      - 4848:4848
+    volumes:
+      - ./target:/opt/payara/deployments
+      - ./config:/config/
+    depends_on:
+      - mariadb
+      - graphdb
+    environment:
+      - POSTBOOT_COMMANDS=/config/post-boot-commands.asadmin
